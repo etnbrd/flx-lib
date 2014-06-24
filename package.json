@@ -1,0 +1,22 @@
+{
+  "name": "flx",
+  "version": "0.0.0",
+  "description": "A fluxionnal execution model",
+  "main": "flx.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etnbrd/flx"
+  },
+  "keywords": [
+    "Fluxion"
+  ],
+  "author": "Etienne Brodu <etn@etnbrd.com> (http://etnbrd.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/etnbrd/flx/issues"
+  },
+  "homepage": "https://github.com/etnbrd/flx"
+}
