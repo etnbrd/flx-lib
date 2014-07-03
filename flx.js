@@ -29,8 +29,7 @@ function post(msg) {
 
   function recvMsg(msg) {
     if (!flx_repo[msg.dest]) {
-      console.log(msg.dest + ' not defined');
-      // link(msg.dest);
+      throw "flx " + msg.dest + " not defined";
     }
 
     hooks.post(msg, msg.dest);
