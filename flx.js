@@ -45,8 +45,8 @@ function post(msg) {
 };
 
 function register(name, fn, scp) {
-  if (flx_repo[name])
-    return false;
+  // if (flx_repo[name])
+  //   return false;
 
   scp = scp || {};
   scp.m = message;
@@ -58,6 +58,8 @@ function register(name, fn, scp) {
 
     return true;
   }
+
+  return false;
 };
 
 function message(dest, body) {
