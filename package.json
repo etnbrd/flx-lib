@@ -1,6 +1,6 @@
 {
   "name": "flx",
-  "version": "0.0.0-1",
+  "version": "0.0.0-2",
   "description": "A fluxionnal execution model",
   "main": "flx.js",
   "devDependencies": {
