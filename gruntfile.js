@@ -4,6 +4,18 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    simplemocha: {
+      options: {
+        globals: [],
+        timeout: 3000,
+        ignoreLeaks: false,
+        ui: 'bdd',
+        reporter: 'dot'
+      },
+
+      all: { src: ['test'] }
+    },
+
     docco: {
       debug: {
         src: ['lib/index.js'],
@@ -27,5 +39,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-docco');
   grunt.loadNpmTasks('grunt-doxx');
+  grunt.loadNpmTasks('grunt-simple-mocha');
 
+  grunt.registerTask('default', ['simplemocha', 'docco']);
 };
