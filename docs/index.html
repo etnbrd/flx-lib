@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>index.js</title>
+  <title>flx : a fluxionnal execution model</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -13,12 +13,6 @@
     
     <ul class="sections">
         
-          <li id="title">
-              <div class="annotation">
-                  <h1>index.js</h1>
-              </div>
-          </li>
-        
         
         
         <li id="section-1">
@@ -27,10 +21,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <h1 id="flx-a-fluxionnal-execution-model">flx : a fluxionnal execution model</h1>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">
+'use strict'</span>;
 
 <span class="hljs-keyword">var</span> flxRepo = {},
     hooks;</pre></div></div>
@@ -44,7 +40,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <h1 id="fluxionnal-execution-model">Fluxionnal execution model</h1>
+              <h2 id="fluxions">Fluxions</h2>
 
             </div>
             
@@ -57,7 +53,9 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <h2 id="fluxions">Fluxions</h2>
+              <p>The fluxionnal execution model role is to manage and invoke autonomous execution units.
+An execution unit accepts only streams as input and output, that is a continuous and infinite sequence of data contained in messages.
+We named this execution unit a fluxion.</p>
 
             </div>
             
@@ -69,21 +67,6 @@
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>The fluxionnal execution model role is to manage and invoke autonomous execution units.
-An execution unit accepts only streams as input and output, that is a continuous and infinite sequence of data contained in messages.
-We named this execution unit a fluxion.</p>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>Messages are composed of the name of the recipient fluxion, a body, and are carried by a messaging system.</p>
 
@@ -106,14 +89,28 @@ We named this execution unit a fluxion.</p>
         </li>
         
         
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>A fluxion is a function, as in functional programming, only dependent from data streams.
+It is composed of a unique name, a processing function, and a persisted memory context.</p>
+
+            </div>
+            
+        </li>
+        
+        
         <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>A fluxion is a function, as in functional programming, only dependent from data streams.
-It is composed of a unique name, a processing function, and a persisted memory context.</p>
+              <p>While processing a message, the fluxion modifies its context, and sends back messages on its output streams.
+The fluxion’s execution context is defined as the set of state variables whose the fluxion depends on, between two rounds of execution.</p>
 
             </div>
             
@@ -126,8 +123,8 @@ It is composed of a unique name, a processing function, and a persisted memory c
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>While processing a message, the fluxion modifies its context, and sends back messages on its output streams.
-The fluxion’s execution context is defined as the set of state variables whose the fluxion depends on, between two rounds of execution.</p>
+              <p>The fluxions make up a chain of processing binded by data streams.
+All these chains make up a directed graph, managed by the messaging system.</p>
 
             </div>
             
@@ -140,8 +137,7 @@ The fluxion’s execution context is defined as the set of state variables whose
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>The fluxions make up a chain of processing binded by data streams.
-All these chains make up a directed graph, managed by the messaging system.</p>
+              <h2 id="messaging-system">Messaging system</h2>
 
             </div>
             
@@ -154,7 +150,8 @@ All these chains make up a directed graph, managed by the messaging system.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <h2 id="messaging-system">Messaging system</h2>
+              <p>The messaging system is the core of our fluxionnal execution model.
+It carries messages along stream, and invokes fluxion at a message reception.</p>
 
             </div>
             
@@ -167,8 +164,9 @@ All these chains make up a directed graph, managed by the messaging system.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>The messaging system is the core of our fluxionnal execution model.
-It carries messages along stream, and invokes fluxion at a message reception.</p>
+              <p>It is built around a message queue.
+Each message is processed one after another by invocation of the recipient fluxion.
+Using a message queue allows to execute multiple processing chain fairly and concurrently, without difference in scheduling local messages, or network messages.</p>
 
             </div>
             
@@ -180,21 +178,6 @@ It carries messages along stream, and invokes fluxion at a message reception.</p
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
-              </div>
-              <p>It is built around a message queue.
-Each message is processed one after another by invocation of the recipient fluxion.
-Using a message queue allows to execute multiple processing chain fairly and concurrently, without difference in scheduling local messages, or network messages.</p>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-12">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>The messaging system needs every fluxion to be registered.
 This registration matchs a processing function with a unique name and an initial execution context.
@@ -233,11 +216,11 @@ The registration is done using the function <code>register(&lt;name&gt;, &lt;fn&
         </li>
         
         
-        <li id="section-13">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>To trigger a fluxions chain, a message is sent using <code>start(&lt;msg&gt;)</code>, an alias for <code>post(&lt;msg&gt;)</code>, with a different meaning.
 This function pushes a first message in the queue.
@@ -275,11 +258,11 @@ The system loops until the queue is empty.</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <p><code>post</code> accept messages with only one destination, or an array of destination to send the message to.</p>
 
@@ -298,11 +281,11 @@ The system loops until the queue is empty.</p>
         </li>
         
         
-        <li id="section-15">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <h1 id="hooks">Hooks</h1>
 
@@ -323,11 +306,11 @@ The system loops until the queue is empty.</p>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <h1 id="public-api">Public API</h1>
 
