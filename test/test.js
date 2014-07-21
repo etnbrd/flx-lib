@@ -1,4 +1,4 @@
-var flx = require('../flx');
+var flx = require('..');
 
 var fn = function(msg) {
     msg.done();

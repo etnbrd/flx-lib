@@ -2,8 +2,10 @@
   "name": "flx",
   "version": "0.0.0-2",
   "description": "A fluxionnal execution model",
-  "main": "flx.js",
+  "main": "lib/index.js",
   "devDependencies": {
+    "docco": "^0.6.3",
+    "doxx": "^0.7.4",
     "mocha": "*"
   },
   "scripts": {
