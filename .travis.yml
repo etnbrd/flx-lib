@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "0.11"
+  - "0.10"
+
+
+addons:
+  code_climate:
+    repo_token:
+      secure: "W60vAQsqOrCnkjfoDYSc7VWyB9lc9BiDOzL5eXsTq7+cHz2R5//LwTDQnR1HvvxXQE/hnTL6/Wy/zDr0HAJCUWJy2tDa/SZl9NnBy9XInVArRpYaphAJhF7SCKvgaitptSejhoq4pWENzAenYi//v1prkm7QcdtegzkN0/UH4uQ="
+
+# Use sed to replace the SSH URL with the public URL, then initialize submodules
+git:
+  submodules: false
+before_install:
+  - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
+
+# Export coverage data to codeclimate
+after_script:
+  - cat results/lcov.info | codeclimate

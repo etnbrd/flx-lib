@@ -1,0 +1,25 @@
+{
+    "undef": true,
+    "unused": true,
+    "bitwise": true,
+    "camelcase": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "indent": 2,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "quotmark": "single",
+    "maxdepth": 3,
+    "node": true,
+    "esnext": true,
+    "overrides": {
+        "test*/*": { "unused": false, "mocha": true },
+        "src/test.js": { "unused": false, "mocha": true },
+        "src/lib/traverse/test.js": { "unused": false, "mocha": true }
+    }
+}

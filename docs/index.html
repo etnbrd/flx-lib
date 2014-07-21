@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>index.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+
+
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">var</span> hooks = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./hooks'</span>)
+} <span class="hljs-keyword">catch</span>(err) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>For debug purpose
+console.log(“No hooks module found, fallback to debug”);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> hooks = {
+    register: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(name, fn, scps)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>console.log(“+ register “ + name);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    },
+    post: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(msg, dest)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>console.log(“&gt;&gt; post to “ + dest + “ | “ + msg);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    }
+  };
+}
+
+<span class="hljs-keyword">var</span> flx_repo = {};
+
+
+<span class="hljs-comment">/**
+ * Post a message.
+ * A message being an object containing the name of the destination fluxion, and the body of the message.
+ * @param      {Object}   source path
+ * @jsFiddle   A jsFiddle embed URL
+ * @return     {undefined} nothing
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">post</span><span class="hljs-params">(msg)</span> </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">postMsg</span><span class="hljs-params">(msg)</span> </span>{
+    <span class="hljs-keyword">if</span> (!msg)
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+    setImmediate(post, msg);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">recvMsg</span><span class="hljs-params">(msg)</span> </span>{
+    <span class="hljs-keyword">if</span> (!flx_repo[msg.dest]) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-string">"flx "</span> + msg.dest + <span class="hljs-string">" not defined"</span>;
+    }
+
+    hooks.post(msg, msg.dest);
+    postMsg(flx_repo[msg.dest].run.call(flx_repo[msg.dest].scp, msg.body));
+  }
+
+  <span class="hljs-keyword">if</span> (msg)
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(msg.dest)) <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; msg.dest.length; i++) {
+      recvMsg(message(msg.dest[i], msg.body));
+    } <span class="hljs-keyword">else</span> {
+      recvMsg(msg);
+    }
+};
+
+
+<span class="hljs-comment">/**
+ * Register a fluxion
+ * @param      {String}   Name
+ * @param      {Function} Function
+ * @param      {Object}   Scope
+ * @jsFiddle   A jsFiddle embed URL
+ * @return     {undefined} true if successuflly registered, false else.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span><span class="hljs-params">(name, fn, scp)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>if (flx_repo[name])
+  return false;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  scp = scp || {};
+  scp.m = message;
+  scp.register = register;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fn === <span class="hljs-string">"function"</span>) {
+    hooks.register(name, fn, scp);
+    flx_repo[name] = {run: fn, scp: scp}; 
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+};
+
+
+<span class="hljs-comment">/**
+ * Build a message
+ * @param      {String}   destination name
+ * @param      {Object}   body of the message
+ * @jsFiddle   A jsFiddle embed URL
+ * @return     {undefined} nothing
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">message</span><span class="hljs-params">(dest, body)</span> </span>{
+  <span class="hljs-keyword">return</span> {
+    dest: dest,
+    body: body
+  };
+};
+
+<span class="hljs-built_in">module</span>.exports = {
+  register : register,
+  start : post,
+  m : message,
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
