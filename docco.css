@@ -36,7 +36,7 @@ body {
   font-family: "aller-light";
   font-size: 14px;
   line-height: 18px;
-  color: #30404f;
+  color: rgb(37, 37, 37);
   margin: 0; padding: 0;
   height:100%;
 }
@@ -85,7 +85,7 @@ hr {
 
 pre, tt, code {
   font-size: 12px; line-height: 16px;
-  font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+  font-family: Terminus, Menlo, Monaco, Consolas, "Lucida Console", monospace;
   margin: 0; padding: 0;
 }
   .annotation pre {
@@ -227,7 +227,7 @@ ul.sections > li > div {
   }
 
   ul.sections > li > div.annotation p tt, .annotation code {
-    background: #f8f8ff;
+    background: rgb(222, 222, 222);
     border: 1px solid #dedede;
     font-size: 12px;
     padding: 0 0.2em;
@@ -240,7 +240,7 @@ ul.sections > li > div {
     position: relative;
   }
   body {
-    background-color: #F5F5FF;
+    background-color: rgb(37, 37, 37);
     font-size: 15px;
     line-height: 21px;
   }
@@ -368,12 +368,29 @@ ul.sections > li > div {
 
 /*---------------------- Syntax Highlighting -----------------------------*/
 
+.content {
+  color: rgb(222, 222, 222);
+}
+
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
 /*
 
 github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
+
+colors:
+ rgb(120, 120, 120) : comments
+ rgb(  0, 232, 190) : keyword, assignment, literal ...
+ rgb(181, 178, 255) : numbers
+ rgb(  0, 213, 233) : string
+ rgb(251,   0,  86) : title, id
+ rgb(  0, 250, 255) :    params
+ #008080 : attribute, variable ...
+ rgb(  0, 250, 255) :    regexp
+ #458 :    class
+ #990073 : symbol
+ rgb(251,   0,  86) : builtin
 */
 
 pre code {
@@ -386,7 +403,7 @@ pre .hljs-comment,
 pre .hljs-template_comment,
 pre .hljs-diff .hljs-header,
 pre .hljs-javadoc {
-  color: #408080;
+  color: rgb(95, 95, 95);
   font-style: italic
 }
 
@@ -398,28 +415,28 @@ pre .hljs-winutils,
 pre .hljs-javascript .hljs-title,
 pre .hljs-lisp .hljs-title,
 pre .hljs-subst {
-  color: #954121;
+  color: rgb(  0, 232, 190);
   /*font-weight: bold*/
 }
 
 pre .hljs-number,
 pre .hljs-hexcolor {
-  color: #40a070
+  color: rgb(181, 178, 255)
 }
 
 pre .hljs-string,
 pre .hljs-tag .hljs-value,
 pre .hljs-phpdoc,
 pre .hljs-tex .hljs-formula {
-  color: #219161;
+  color: rgb(  0, 213, 233);
 }
 
 pre .hljs-title,
 pre .hljs-id {
-  color: #19469D;
+  color: rgb(251,   0,  86);
 }
 pre .hljs-params {
-  color: #00F;
+  color: rgb(  0, 250, 255);
 }
 
 pre .hljs-javascript .hljs-title,
@@ -451,7 +468,7 @@ pre .hljs-lisp .hljs-body {
 }
 
 pre .hljs-regexp {
-  color: #B68
+  color: rgb(  0, 250, 255)
 }
 
 pre .hljs-class {
@@ -473,7 +490,7 @@ pre .hljs-builtin,
 pre .hljs-constructor,
 pre .hljs-built_in,
 pre .hljs-lisp .hljs-title {
-  color: #0086b3
+  color: rgb(251,   0,  86);
 }
 
 pre .hljs-preprocessor,
