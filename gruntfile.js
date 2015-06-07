@@ -72,12 +72,12 @@ module.exports = function(grunt) {
   }
 
   function deploy(){
-    if (process.env.TRAVIS === 'true' && process.env.TRAVIS_SECURE_ENV_VARS === 'true' && process.env.TRAVIS_PULL_REQUEST === 'false') {
+    // if (process.env.TRAVIS === 'true' && process.env.TRAVIS_SECURE_ENV_VARS === 'true' && process.env.TRAVIS_PULL_REQUEST === 'false') {
       grunt.log.writeln('executing deployment');
       grunt.task.run('gh-pages:deploy');
-    } else {
-      grunt.log.writeln('skipped deployment');
-    }
+    // } else {
+      // grunt.log.writeln('skipped deployment');
+    // }
   }
 
   grunt.loadNpmTasks('grunt-docco');
