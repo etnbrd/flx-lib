@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>flx : a fluxionnal execution model</title>
+  <title>index.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -13,6 +13,12 @@
     
     <ul class="sections">
         
+          <li id="title">
+              <div class="annotation">
+                  <h1>index.js</h1>
+              </div>
+          </li>
+        
         
         
         <li id="section-1">
@@ -21,15 +27,26 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <h1 id="flx-a-fluxionnal-execution-model">flx : a fluxionnal execution model</h1>
-
+              
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-pi">
-'use strict'</span>;
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>),
+    fork = <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>).fork;
 
 <span class="hljs-keyword">var</span> flxRepo = {},
-    hooks;</pre></div></div>
+    minions = {},
+    options = {
+      allowFlxOverwrite: <span class="hljs-literal">false</span>, <span class="hljs-comment">// disallow the redifinition of fluxion (it will mess with remote fluxion)</span>
+      immediateDeploy: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Deploy minions immediatly after initialisation</span>
+    };
+
+<span class="hljs-comment">/* <span class="hljs-doctag"><span class="hljs-keyword">TODO</span></span> a fluxion is an entry point for execution distributed over the network.
+   It makes sense to say that multiple fluxions can share the same heap (but not scope), because they are on the same minion.
+   So minions assure the low-level isolation, and fluxion assure the higher-level isolation.
+   During the registration phase, the library should gather fluxion by minions, and then creates minions, so that the fluxions can actually share the heap, once deployed remotely.
+
+   Also, it would make sense to preserve the cycles, we need a way to serialize that, and restore the memory as-is on the remote minions.
+ */</span></pre></div></div>
             
         </li>
         
@@ -40,9 +57,47 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <h2 id="fluxions">Fluxions</h2>
+              <p>TODO refactor : message and some other functions are duplicated between index.js and minion.js</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">message</span>(<span class="hljs-params">dest, body</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    dest: dest,
+    body: body
+  };
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span>(<span class="hljs-params">name, fn, scp, remote</span>) </span>{
+  <span class="hljs-keyword">if</span> (flxRepo[name] &amp;&amp; !options.allowFlxOverwrite)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fn === <span class="hljs-string">'function'</span>) {
+    scp = scp || {};
+    scp.m = message;
+
+    <span class="hljs-keyword">var</span> flx = {run: fn, scp: scp, minion: remote};
+
+    <span class="hljs-keyword">if</span>(remote) {
+      <span class="hljs-keyword">if</span> (!minions[remote]) minions[remote] = {name: remote, flx:{}};
+      minions[remote].flx[name] = flx;
+    }
+    
+    flxRepo[name] = flx;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">receive</span>(<span class="hljs-params">req</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_receiveOne</span>(<span class="hljs-params">dest</span>) </span>{
+    <span class="hljs-keyword">if</span> (!flxRepo[dest]) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-string">'flx '</span> + dest + <span class="hljs-string">' is not defined'</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (flxRepo[dest].minion &amp;&amp; flxRepo[dest].minion.worker) { <span class="hljs-comment">// flxRepo[dest].minion) { // should test on minion, but as deployement can be postponed, we actually test on the worker</span></pre></div></div>
             
         </li>
         
@@ -53,11 +108,55 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>The fluxionnal execution model role is to manage and invoke autonomous execution units.
-An execution unit accepts only streams as input and output, that is a continuous and infinite sequence of data contained in messages.
-We named this execution unit a fluxion.</p>
+              <p>TODO do serialization here</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>      flxRepo[dest].minion.worker.send({reason: <span class="hljs-string">'post'</span>, data: message(dest, req.body)});
+    } <span class="hljs-keyword">else</span> {
+      process.nextTick(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-keyword">var</span> res = flxRepo[dest].run.call(flxRepo[dest].scp, req.body);
+        <span class="hljs-keyword">if</span> (res) receive(res);
+      });
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(req.dest)) {
+    req.dest.forEach(_receiveOne)
+  } <span class="hljs-keyword">else</span> {
+    _receiveOne(req.dest);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rcvMsgFactory</span>(<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_receiveMessage</span>(<span class="hljs-params">message</span>) </span>{
+    <span class="hljs-keyword">if</span> (message.reason === <span class="hljs-string">'log'</span>)
+      <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">'&gt;&gt; '</span>, message.data.join(<span class="hljs-string">' '</span>));
+
+    <span class="hljs-keyword">if</span> (message.reason === <span class="hljs-string">'post'</span>) {
+      receive(message.data)
+    }
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bootstrapMinions</span>(<span class="hljs-params"></span>) </span>{
+
+  <span class="hljs-comment">/* Warning, there might be a race condition in this fonction.
+     I don't now if fork is synchronous or not, and I can't find anythin on the web.
+     If it is synchronous, there is no race condition, but poor performance are to be expected.
+     If it is asynchronous, there is potentially a race condition, if messages are dropped during the fork.
+     If the pipes are buffered, there should be no race condition, however.
+   */</span>
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> minionName <span class="hljs-keyword">in</span> minions) { <span class="hljs-keyword">var</span> minion = minions[minionName];
+
+    <span class="hljs-keyword">if</span> (!minion.worker) {
+      minion.worker = fork(__dirname + <span class="hljs-string">'/minion.js'</span>);
+      minion.worker.on(<span class="hljs-string">'message'</span>, rcvMsgFactory(minionName));
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> flxName <span class="hljs-keyword">in</span> minion.flx) { <span class="hljs-keyword">var</span> flx = minion.flx[flxName];
+      <span class="hljs-keyword">if</span> (!flx.deployed) {</pre></div></div>
             
         </li>
         
@@ -68,23 +167,12 @@ We named this execution unit a fluxion.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Messages are composed of the name of the recipient fluxion, a body, and are carried by a messaging system.</p>
+              <p>TODO do serialization here</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-comment">/**
- * Build a message
- * @param      {String}   destination name
- * @param      {Object}   body of the message
- * @return     {undefined} nothing
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">message</span><span class="hljs-params">(dest, body)</span> </span>{
-  <span class="hljs-keyword">return</span> {
-    dest: dest,
-    body: body
-  };
-}</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        flx.minion = minion;
+        flx.deployed = <span class="hljs-literal">true</span>; <span class="hljs-comment">// We are optimistic here. On the verge of ecstasy would be more a accurate definition, though.</span></pre></div></div>
             
         </li>
         
@@ -95,10 +183,22 @@ We named this execution unit a fluxion.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>A fluxion is a function, as in functional programming, only dependent from data streams.
-It is composed of a unique name, a processing function, and a persisted memory context.</p>
+              <p>In flx, there is minion, which contains an object of the registered fluxion including flx itslef : circular dependency.</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> remoteFlx = {
+          name: flxName,
+          run: flx.run.toString(),
+          scp: flx.scp
+        }
+
+        minion.worker.send({reason:<span class="hljs-string">'register'</span>, data: remoteFlx})
+      }
+
+    }
+  }
+}</pre></div></div>
             
         </li>
         
@@ -109,220 +209,24 @@ It is composed of a unique name, a processing function, and a persisted memory c
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>While processing a message, the fluxion modifies its context, and sends back messages on its output streams.
-The fluxion’s execution context is defined as the set of state variables whose the fluxion depends on, between two rounds of execution.</p>
+              <p>Right after synchronously registering all the fluxions, we bootstrap the </p>
 
             </div>
             
-        </li>
-        
-        
-        <li id="section-7">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
-              </div>
-              <p>The fluxions make up a chain of processing binded by data streams.
-All these chains make up a directed graph, managed by the messaging system.</p>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-8">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
-              </div>
-              <h2 id="messaging-system">Messaging system</h2>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-9">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
-              </div>
-              <p>The messaging system is the core of our fluxionnal execution model.
-It carries messages along stream, and invokes fluxion at a message reception.</p>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-10">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
-              </div>
-              <p>It is built around a message queue.
-Each message is processed one after another by invocation of the recipient fluxion.
-Using a message queue allows to execute multiple processing chain fairly and concurrently, without difference in scheduling local messages, or network messages.</p>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-11">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
-              </div>
-              <p>The messaging system needs every fluxion to be registered.
-This registration matchs a processing function with a unique name and an initial execution context.
-The messaging system carries messages streams based on the names of the recipients fluxions.
-That’s why two fluxions with the same name would lead the system in a conflicting situation.
-The registration is done using the function <code>register(&lt;name&gt;, &lt;fn&gt;, &lt;context&gt;)</code>.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-comment">/**
- * Register a fluxion
- * @param      {String}   Name
- * @param      {Function} Function
- * @param      {Object}   Scope
- * @return     {undefined} true if successuflly registered, false else.
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span><span class="hljs-params">(name, fn, scp)</span> </span>{
-  <span class="hljs-keyword">if</span> (flxRepo[name])
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-
-  scp = scp || {};
-  scp.m = message;
-  scp.register = register;
-
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fn === <span class="hljs-string">'function'</span>) {
-    hooks.register(name, fn, scp);
-    flxRepo[name] = {run: fn, scp: scp}; 
-
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            <div class="content"><div class='highlight'><pre>process.nextTick(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (options.immediateDeploy) {
+    bootstrapMinions
   }
+});
 
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-12">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
-              </div>
-              <p>To trigger a fluxions chain, a message is sent using <code>start(&lt;msg&gt;)</code>, an alias for <code>post(&lt;msg&gt;)</code>, with a different meaning.
-This function pushes a first message in the queue.
-Immediately, the system dequeues this message to invoke the recipient processing function.
-The recipient function sends back messages using <code>post(&lt;msg&gt;)</code>, to be enqueud in the system.
-The system loops until the queue is empty.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-comment">/**
- * Post a message.
- * A message being an object containing the name of the destination fluxion, and the body of the message.
- * @param      {Object}   source path
- * @return     {undefined} nothing
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">post</span><span class="hljs-params">(msg)</span> </span>{
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">postMsg</span><span class="hljs-params">(msg)</span> </span>{
-    <span class="hljs-keyword">if</span> (!msg)
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-
-    setImmediate(post, msg);
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">recvMsg</span><span class="hljs-params">(msg)</span> </span>{
-    <span class="hljs-keyword">if</span> (!flxRepo[msg.dest]) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-string">'flx '</span> + msg.dest + <span class="hljs-string">' not defined'</span>;
-    }
-
-    hooks.post(msg, msg.dest);
-    postMsg(flxRepo[msg.dest].run.call(flxRepo[msg.dest].scp, msg.body));
-  }</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-13">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
-              </div>
-              <p><code>post</code> accept messages with only one destination, or an array of destination to send the message to.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (msg)
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(msg.dest)) {
-      msg.dest.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(dest)</span> </span>{
-        recvMsg(message(dest, msg.body));
-      })
-    } <span class="hljs-keyword">else</span> {
-      recvMsg(msg);
-    }
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-14">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
-              </div>
-              <h1 id="hooks">Hooks</h1>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">try</span> {
-  hooks = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./hooks'</span>);
-} <span class="hljs-keyword">catch</span>(err) {
-  hooks = {
-    register: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(name, fn, scps)</span> </span>{
-    },
-    post: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(msg, dest)</span> </span>{
-    }
-  };
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-15">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
-              </div>
-              <h1 id="public-api">Public API</h1>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
 <span class="hljs-built_in">module</span>.exports = {
-  register : register,
-  post : post,
-  start : post,
-  m : message,
-};</pre></div></div>
+  register: register,
+  post: receive,
+  start: receive,
+  m: message,
+  deploy: bootstrapMinions,
+  options: options
+}</pre></div></div>
             
         </li>
         
