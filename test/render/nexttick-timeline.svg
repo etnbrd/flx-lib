@@ -1,0 +1,108 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="600" height="200" class="chart" filename="nexttick-timeline.svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[
+html, body  { width: 1000px; height: 100%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; }
+text { font-family: 'Gotham Rounded'; font-weight: 100; color: blue; }
+.axis path, .axis line { fill: none; stroke: #000000; shape-rendering: crispedges; }
+.grid .tick { stroke: #d3d3d3; opacity: 0.7; }
+.grid path { stroke-width: 0px; }
+.line { stroke-width: 1.5pt; stroke: #000000; }
+.label.Javascript, .slice.Javascript { fill: #e31a1c; }
+.line.Javascript { stroke: #e31a1c; }
+.label.Ruby, .slice.Ruby { fill: #fc4e2a; }
+.line.Ruby { stroke: #fc4e2a; }
+.label.Python, .slice.Python { fill: #fd8d3c; }
+.line.Python { stroke: #fd8d3c; }
+.label.Csharp, .slice.Csharp { fill: #bd0026; }
+.line.Csharp { stroke: #bd0026; }
+.label.PHP, .slice.PHP { fill: #78c679; }
+.line.PHP { stroke: #78c679; }
+.label.XML_Schema, .slice.XML_Schema { fill: #41ab5d; }
+.line.XML_Schema { stroke: #41ab5d; }
+.label.SQL, .slice.SQL { fill: #238443; }
+.line.SQL { stroke: #238443; }
+.label.Perl, .slice.Perl { fill: #006837; }
+.line.Perl { stroke: #006837; }
+.label.C, .slice.C { fill: #41b6c4; }
+.line.C { stroke: #41b6c4; }
+.label.Cplusplus, .slice.Cplusplus { fill: #1d91c0; }
+.line.Cplusplus { stroke: #1d91c0; }
+.label.Java, .slice.Java { fill: #225ea8; }
+.line.Java { stroke: #225ea8; }
+.label.VisualBasicNET, .slice.VisualBasicNET { fill: #253494; }
+.line.VisualBasicNET { stroke: #253494; }
+.label.Autoconf, .slice.Autoconf { fill: #f768a1; }
+.line.Autoconf { stroke: #f768a1; }
+.label.Assembler, .slice.Assembler { fill: #dd3497; }
+.line.Assembler { stroke: #dd3497; }
+.label.Shell, .slice.Shell { fill: #ae017e; }
+.line.Shell { stroke: #ae017e; }
+.label.Make, .slice.Make { fill: #7a0177; }
+.line.Make { stroke: #7a0177; }
+.label.Swift, .slice.Swift { fill: #addd8e; }
+.line.Swift { stroke: #addd8e; }
+.label.ObjectiveC, .slice.ObjectiveC, .label.iOS, .slice.iOS { fill: #78c679; }
+.line.ObjectiveC, .line.iOS { stroke: #78c679; }
+.label.CSS, .slice.CSS { fill: #41ab5d; }
+.line.CSS { stroke: #41ab5d; }
+.slice.Arduino__Raspberry_Pi { fill: #7fcdbb; }
+.line.Arduino__Raspberry_Pi { stroke: #7fcdbb; }
+.slice.Android { fill: #41b6c4; }
+.line.Android { stroke: #41b6c4; }
+.label.AngularJS, .slice.AngularJS { fill: #feb24c; }
+.line.AngularJS { stroke: #feb24c; }
+.label.Nodejs, .slice.Nodejs { fill: #fd8d3c; }
+.line.Nodejs { stroke: #fd8d3c; }
+.label.Bower { fill: #bd0026; }
+.line.Bower { stroke: #bd0026; }
+.label.npm { fill: #e31a1c; }
+.line.npm { stroke: #e31a1c; }
+.label.PyPI { fill: #fd8d3c; }
+.line.PyPI { stroke: #fd8d3c; }
+.label.Rubygems { fill: #fc4e2a; }
+.line.Rubygems { stroke: #fc4e2a; }
+.label.Clojars { fill: #000000; }
+.line.Clojars { stroke: #000000; }
+.label.Hackage { fill: #000000; }
+.line.Hackage { stroke: #000000; }
+.label.Hex { fill: #000000; }
+.line.Hex { stroke: #000000; }
+.label.LuaRocks { fill: #000000; }
+.line.LuaRocks { stroke: #000000; }
+.label.CPAN { fill: #41ab5d; }
+.line.CPAN { stroke: #41ab5d; }
+.label.CPAN_search { fill: #000000; }
+.line.CPAN_search { stroke: #000000; }
+.label.CRAN { fill: #000000; }
+.line.CRAN { stroke: #000000; }
+.label.Perl6Eco { fill: #006837; }
+.line.Perl6Eco { stroke: #006837; }
+.label.Drupal { fill: #000000; }
+.line.Drupal { stroke: #000000; }
+.label.Packagist { fill: #dd3497; }
+.line.Packagist { stroke: #dd3497; }
+.label.Pear { fill: #8996b8; }
+.line.Pear { stroke: #8996b8; }
+.label.MELPA { fill: #000000; }
+.line.MELPA { stroke: #000000; }
+.label.Crates { fill: #000000; }
+.line.Crates { stroke: #000000; }
+.label.GoDoc { fill: #41b6c4; }
+.line.GoDoc { stroke: #41b6c4; }
+.label.Maven { fill: #225ea8; }
+.line.Maven { stroke: #225ea8; }
+.label.nugets { fill: #253494; }
+.line.nugets { stroke: #253494; }
+.slice.nocont { fill: #feb24c; }
+.line.nocont { stroke: #feb24c; }
+.slice.eval { fill: #fd8d3c; }
+.line.eval { stroke: #fd8d3c; }
+.slice.lib { fill: #fc4e2a; }
+.line.lib { stroke: #fc4e2a; }
+.slice.err { fill: #e31a1c; }
+.line.err { stroke: #e31a1c; }
+.slice.fail { fill: #bd0026; }
+.line.fail { stroke: #bd0026; }
+.slice.notest { fill: #800026; }
+.line.notest { stroke: #800026; }
+.slice.ok { fill: #7fcdbb; }
+.line.ok { stroke: #7fcdbb; }
+svg { overflow-x: visible; overflow-y: visible; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-style: dotted; border-right-style: dotted; border-bottom-style: dotted; border-left-style: dotted; border-top-color: black; border-right-color: black; border-bottom-color: black; border-left-color: black; }]]></style></defs><rect x="-197.58" y="20" width="956" height="180" fill="#FDFBF7"></rect><g class="x axis" transform="translate(0,160)"><g class="tick" style="opacity: 1; " transform="translate(0,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">0</text></g><g class="tick" style="opacity: 1; " transform="translate(48.27586206896552,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">50</text></g><g class="tick" style="opacity: 1; " transform="translate(96.55172413793105,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">100</text></g><g class="tick" style="opacity: 1; " transform="translate(144.82758620689657,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">150</text></g><g class="tick" style="opacity: 1; " transform="translate(193.1034482758621,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">200</text></g><g class="tick" style="opacity: 1; " transform="translate(241.37931034482756,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">250</text></g><g class="tick" style="opacity: 1; " transform="translate(289.65517241379314,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">300</text></g><g class="tick" style="opacity: 1; " transform="translate(337.9310344827586,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">350</text></g><g class="tick" style="opacity: 1; " transform="translate(386.2068965517242,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">400</text></g><g class="tick" style="opacity: 1; " transform="translate(434.48275862068965,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">450</text></g><g class="tick" style="opacity: 1; " transform="translate(482.7586206896551,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">500</text></g><g class="tick" style="opacity: 1; " transform="translate(531.0344827586207,0)"><line y2="6" x2="0"></line><text dy=".71em" style="text-anchor: middle; " y="14" x="0">550</text></g><path class="domain" d="M0,6V0H560V6"></path></g><rect class="ticks" fill="rgba(0,0,0,.4)" width="11.155676000000021" height="4" x="0.5541489655172348" y="30"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="12.24337751724136" height="4" x="11.928589931034516" y="36"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="8.299552413793082" height="4" x="24.22939351724141" y="42"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="7.748871586206907" height="4" x="32.56215972413794" y="48"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="7.346826344827597" height="4" x="40.33738703448276" y="54"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="13.802776689655156" height="4" x="47.70948772413796" y="60"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.6121720000000535" height="4" x="61.542537241379286" y="66"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.230161241379329" height="4" x="68.18042965517238" y="72"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.921135586206893" height="4" x="74.43110427586207" y="78"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="10.683183724137884" height="4" x="81.37475089655175" y="84"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.437048413793051" height="4" x="92.08733655172419" y="90"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.2914513103447645" height="4" x="98.54915531034487" y="96"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="9.495571448275863" height="4" x="104.8605455172414" y="102"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.343369103448304" height="4" x="114.38250841379312" y="108"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="9.065801379310367" height="4" x="120.75127062068968" y="114"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.3908744827585755" height="4" x="129.83803241379314" y="120"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.590672827586205" height="4" x="136.26081144827586" y="126"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.312293931034485" height="4" x="142.87608758620692" y="132"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="9.081338482758603" height="4" x="149.21261599999997" y="138"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.660864965517186" height="4" x="158.31996551724143" y="144"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.634972689655177" height="4" x="165.00249475862074" y="30"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="9.138485517241422" height="4" x="171.6584964137931" y="36"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.454008689655219" height="4" x="180.82318220689652" y="42"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.230876689655141" height="4" x="187.29927034482762" y="48"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="8.974994482758607" height="4" x="193.55136137931032" y="54"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.8924520000000795" height="4" x="202.5530524137931" y="60"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="7.006919862068947" height="4" x="209.4676572413793" y="66"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="9.344076965517303" height="4" x="216.49387489655172" y="72"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.774149103448367" height="4" x="225.8647266206896" y="78"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="10.308024275862032" height="4" x="232.658667862069" y="84"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.328009655172364" height="4" x="242.99046124137934" y="90"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.2906480000001" height="4" x="249.33964758620684" y="96"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="11.433098068965482" height="4" x="255.65026537931038" y="102"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.520937379310344" height="4" x="267.11093282758617" y="108"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="6.802314206896551" height="4" x="273.65365227586204" y="114"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="13.308813241379319" height="4" x="280.4749862068966" y="120"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="11.771237655172422" height="4" x="293.82240662068966" y="126"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="15.79536289655168" height="4" x="305.6201824827586" y="132"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="9.43739227586198" height="4" x="321.44145889655175" y="138"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="8.936795724137875" height="4" x="330.90146841379317" y="144"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="15.303081379310305" height="4" x="339.8604816551724" y="30"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="7.998533103448231" height="4" x="355.19630758620696" y="36"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="8.483039310344871" height="4" x="363.2286193103448" y="42"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="15.646907862068993" height="4" x="371.7307324137931" y="48"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="14.536004965517161" height="4" x="387.4300166896552" y="54"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="17.847302344827657" height="4" x="401.9934075862069" y="60"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="9.781621379310293" height="4" x="419.8679742068966" y="66"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="9.975790758620624" height="4" x="429.67452524137934" y="72"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="16.690340413793002" height="4" x="439.6734526896552" y="78"></rect><rect class="ticks" fill="rgba(0,0,0,.4)" width="8.759392551724133" height="4" x="456.3945815172414" y="84"></rect></svg>

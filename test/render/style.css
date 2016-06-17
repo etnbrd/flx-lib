@@ -1,0 +1,294 @@
+html, body {
+  width: 1000px;
+  height: 100%;
+  margin: auto;
+  // font-family: cmr10;
+}
+
+text {
+  font-family: Gotham Rounded;
+  font-weight: 100;
+  color: blue;
+}
+
+// .container {
+//   width: 40%;
+//   display: inline-block;
+// }
+
+// .eighty {
+//   width: 80%;
+//   display: inline-block;
+// }
+
+// ul {
+//   width: 15%;
+//   display: inline-block;
+// }
+
+// li {
+//   list-style: none;
+//   margin: -3em -1em 0 0;
+//   font-size: 0.7em;
+// }
+
+// li:before {
+//   content: "•";
+//   font-size: 4em;
+//   position: relative;
+//   top: 0.3em;
+// }
+
+// .ct-label, body {
+//   font-family: Serif;
+//   color: black;
+//   fill: black;
+// }
+
+// .ct-line {
+//   stroke-width: 0.8pt;
+// }
+
+// .ct-line.Javascript, .ct-line.npm {
+//   stroke-width: 2pt;
+// }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+
+.line {
+  stroke-width: 1.5pt;
+  // fill: transparent;
+  stroke: black;
+  stroke-linecap: "round";
+}
+
+.label.Javascript, .slice.Javascript                {fill:   #e31a1c}
+.line.Javascript                                    {stroke: #e31a1c}
+.label.Ruby, .slice.Ruby                            {fill:   #fc4e2a}
+.line.Ruby                                          {stroke: #fc4e2a}
+.label.Python, .slice.Python                        {fill:   #fd8d3c}
+.line.Python                                        {stroke: #fd8d3c}
+.label.Csharp, .slice.Csharp                        {fill:   #bd0026}
+.line.Csharp                                        {stroke: #bd0026}
+
+.label.PHP, .slice.PHP                              {fill:   #78c679}
+.line.PHP                                           {stroke: #78c679}
+.label.XML_Schema, .slice.XML_Schema                {fill:   #41ab5d}
+.line.XML_Schema                                    {stroke: #41ab5d}
+.label.SQL, .slice.SQL                              {fill:   #238443}
+.line.SQL                                           {stroke: #238443}
+.label.Perl, .slice.Perl                            {fill:   #006837}
+.line.Perl                                          {stroke: #006837}
+
+.label.C, .slice.C                                  {fill:   #41b6c4}
+.line.C                                             {stroke: #41b6c4}
+.label.Cplusplus, .slice.Cplusplus                  {fill:   #1d91c0}
+.line.Cplusplus                                     {stroke: #1d91c0}
+.label.Java, .slice.Java                            {fill:   #225ea8}
+.line.Java                                          {stroke: #225ea8}
+.label.VisualBasicNET, .slice.VisualBasicNET        {fill:   #253494}
+.line.VisualBasicNET                                {stroke: #253494}
+
+.label.Autoconf, .slice.Autoconf                    {fill:   #f768a1}
+.line.Autoconf                                      {stroke: #f768a1}
+.label.Assembler, .slice.Assembler                  {fill:   #dd3497}
+.line.Assembler                                     {stroke: #dd3497}
+.label.Shell, .slice.Shell                          {fill:   #ae017e}
+.line.Shell                                         {stroke: #ae017e}
+.label.Make, .slice.Make                            {fill:   #7a0177}
+.line.Make                                          {stroke: #7a0177}
+
+.label.Swift, .slice.Swift                          {fill:   #addd8e}
+.line.Swift                                         {stroke: #addd8e}
+.label.ObjectiveC, .slice.ObjectiveC,
+.label.iOS, .slice.iOS                              {fill:   #78c679}
+.line.ObjectiveC,
+.line.iOS                                           {stroke: #78c679}
+.label.CSS, .slice.CSS                              {fill:   #41ab5d}
+.line.CSS                                           {stroke: #41ab5d}
+
+.slice.Arduino__Raspberry_Pi                        {fill:   #7fcdbb}
+.line.Arduino__Raspberry_Pi                         {stroke: #7fcdbb}
+.slice.Android                                      {fill:   #41b6c4}
+.line.Android                                       {stroke: #41b6c4}
+
+.label.AngularJS, .slice.AngularJS                  {fill:   #feb24c}
+.line.AngularJS                                     {stroke: #feb24c}
+.label.Nodejs, .slice.Nodejs                        {fill:   #fd8d3c}
+.line.Nodejs                                        {stroke: #fd8d3c}
+
+
+.label.Bower            {fill:   #bd0026}
+.line.Bower             {stroke: #bd0026}
+.label.npm              {fill:   #e31a1c}
+.line.npm               {stroke: #e31a1c}
+.label.PyPI             {fill:   #fd8d3c}
+.line.PyPI              {stroke: #fd8d3c}
+.label.Rubygems         {fill:   #fc4e2a}
+.line.Rubygems          {stroke: #fc4e2a}
+
+.label.Clojars          {fill:   black}
+.line.Clojars           {stroke: black}
+.label.Hackage          {fill:   black}
+.line.Hackage           {stroke: black}
+.label.Hex              {fill:   black}
+.line.Hex               {stroke: black}
+.label.LuaRocks         {fill:   black}
+.line.LuaRocks          {stroke: black}
+
+.label.CPAN             {fill:   #41ab5d}
+.line.CPAN              {stroke: #41ab5d}
+.label.CPAN_search      {fill:   black}
+.line.CPAN_search       {stroke: black}
+.label.CRAN             {fill:   black}
+.line.CRAN              {stroke: black}
+.label.Perl6Eco         {fill:   #006837}
+.line.Perl6Eco          {stroke: #006837}
+
+.label.Drupal           {fill:   black}
+.line.Drupal            {stroke: black}
+.label.Packagist        {fill:   #dd3497}
+.line.Packagist         {stroke: #dd3497}
+.label.Pear             {fill:   #8996B8}
+.line.Pear              {stroke: #8996B8}
+.label.MELPA            {fill:   black}
+.line.MELPA             {stroke: black}
+
+.label.Crates           {fill:   black}
+.line.Crates            {stroke: black}
+.label.GoDoc            {fill:   #41b6c4}
+.line.GoDoc             {stroke: #41b6c4}
+.label.Maven            {fill:   #225ea8}
+.line.Maven             {stroke: #225ea8}
+.label.nugets           {fill:   #253494}
+.line.nugets            {stroke: #253494}
+
+
+
+.slice.nocont         {fill:   #feb24c}
+.line.nocont          {stroke: #feb24c}
+.slice.eval           {fill:   #fd8d3c}
+.line.eval            {stroke: #fd8d3c}
+.slice.lib            {fill:   #fc4e2a}
+.line.lib             {stroke: #fc4e2a}
+.slice.err            {fill:   #e31a1c}
+.line.err             {stroke: #e31a1c}
+.slice.fail           {fill:   #bd0026}
+.line.fail            {stroke: #bd0026}
+.slice.notest         {fill:   #800026}
+.line.notest          {stroke: #800026}
+.slice.ok             {fill:   #7fcdbb}
+.line.ok              {stroke: #7fcdbb}
+
+
+// PINKS
+
+// #fa9fb5
+// #f768a1
+// #dd3497
+// #ae017e
+// #7a0177
+// #49006a
+
+// GREENS
+
+// #addd8e
+// #78c679
+// #41ab5d
+// #238443
+// #006837
+// #004529
+
+// BLUES
+
+// #7fcdbb
+// #41b6c4
+// #1d91c0
+// #225ea8
+// #253494
+// #081d58
+
+// ORANGES
+
+// #fec44f
+// #fe9929
+// #ec7014
+// #cc4c02
+// #993404
+// #662506
+
+// REDS
+
+// #feb24c
+// #fd8d3c
+// #fc4e2a
+// #e31a1c
+// #bd0026
+// #800026
+
+
+
+
+
+
+
+// #0E151B - Black
+// #D7503C - Red
+// #52EAA9 - Green
+// #FFB454 - Yellow
+// #266B85 - Blue
+// #CB253D - Magenta
+// #8996A8 - Cyan
+// #FEFEFE - White
+
+// #23323F - Bright Black
+// #F05E33 - Bright Red
+// #76FFCD - Bright Green
+// #FFE792 - Bright yellow
+// #3CADD7 - Bright Blue
+// #D73C4D - Bright Magenta
+// #AFC4DB - Bright Cyan
+// #FFFFFF - Bright White
+
+// #F57542 - orange
+// #9F3A2C - brown
+// #1B2735 - Darker
+// #B0B3BA - Grey
+// #FFFFFF - Bright White
+
+// #4ABE95 - green
+// #43AE88 - green 2
+// #5EEBB8 - bright green 2
+// #BD4230 - dark red
+
+
+// #DDB700 - mustard
+// #F7F09D - yellow 2
+// #F3FFB5 - yellow 3 (greener)
+
+// #0C1217 - black
+// #0D1319 - black 2
+// #0E151B - black 3
+// #23323F - black 5
+// #233345 - black 6
+// #263445 - black 7
+
+// #3C444D - grey
+// #3E4751 - grey 2
+// #515C68 - grey 3
+// #B0B3BA - bright grey
+// #EFEFEF - brigher grey
+// #F8F8F8 - white

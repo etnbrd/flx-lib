@@ -1,0 +1,14 @@
+{
+  "name": "render",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Etienne Brodu <etn@etnbrd.com> (http://etnbrd.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "phantomjs": "^1.9.19"
+  }
+}
