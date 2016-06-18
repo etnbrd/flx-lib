@@ -433,7 +433,7 @@ function spanTimelineFactory(parent, name, options) {
       .attr('y', 20)
       .attr('width', options.width + options.margin.left + options.margin.right + margin)
       .attr('height', options.height + options.margin.top + options.margin.bottom - 20)
-      .attr('fill', lightgray)
+      .attr('fill', 'white')
 
       // svg.append('g');
 
@@ -475,7 +475,8 @@ function spanTimeline(svg, data, options) {
     .enter()
     .append("rect")
       .attr('class', 'ticks')
-      .attr('fill', 'rgba(0,0,0,.4)')
+      .attr('fill', 'rgb(0,0,0)')
+      .attr('opacity', '0.4')
       .attr("width", function(d) {
         // return Math.max(x(d.end - d.begin), 1);
         return x(d.end - d.begin);
